@@ -22,7 +22,7 @@
   if($num > 0) {
 
     $class_arr = array();
-    $class_arr['data'] = array();
+  //  $class_arr['data'] = array();
 
     while($row = $result->fetch(PDO::FETCH_ASSOC)) {
       extract($row);
@@ -37,7 +37,7 @@
       );
 
       //push to data
-      array_push($class_arr['data'], $class_item);
+      array_push($class_arr, $class_item);
     }
     echo json_encode($class_arr);
   } else {
