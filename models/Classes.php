@@ -42,6 +42,35 @@
       return $statement;
     }
 
+    public function readDay( ) {
+      $query = "SELECT
+        cl.class_id as class_id,
+        cl.class_time as class_time,
+        cl.class_date as class_date,
+        co.course_name as course_name,
+        co.course_length as course_length,
+        i.name as instructor_name
+        FROM
+        " . $this->table . " cl
+        LEFT JOIN
+         courses co ON cl.course_id = co.course_id
+        LEFT JOIN
+          instructors i ON cl.instructor_id = i.instructor_id
+        WHERE
+          cl.class_date = :date
+        ORDER BY
+          cl.class_time ASC";
+          //Prepare Statement
+        $statement = $this->conn->prepare($query);
+        $statement->bindParam(":date", $this->class_date);
+        //execute query
+        $statement->execute();
+
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $statement;
+    }
+
   }
 
  ?>
